@@ -1,0 +1,28 @@
+{
+  "name": "api_jacobs_shop",
+  "version": "1.0.0",
+  "description": "jacobs-shop ecommerce api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parse": "^0.1.0",
+    "connect-multiparty": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-promise-router": "^4.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.1",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.17",
+    "@babel/node": "^7.22.15",
+    "@babel/preset-env": "^7.22.15"
+  }
+}
