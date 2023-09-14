@@ -1,0 +1,60 @@
+<nav class="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-white">
+    <ul class="flex items-center gap-4">
+        <li class="font-semibold text-lg">
+            <a routerLink="/">
+              Jacob's shop
+            </a>
+        </li>
+        <li>
+            <a routerLink="/" (click)="setSearchByCategory('')" [ngClass]="{'active': activeRoute === '/'}">
+                Inicio
+            </a>
+        </li>
+        <ng-container *ngFor="let categorie of categories">
+            <li>
+                <a routerLink="/" (click)="setSearchByCategory(categorie.title)" [ngClass]="{'active': activeRoute === '/`${categorie.title}`'}">
+                    {{ categorie.title }}
+                </a>
+            </li>
+        </ng-container>
+    </ul>
+
+    <ul class="flex items-center gap-3">
+        <ng-container *ngIf="hasUserAnAccount; else userNoAccount">
+            <li class="text-black/60">
+                {{ parsedAccount?.email }}
+            </li>
+            <li>
+                <a routerLink='/manage-users' [ngClass]="{'active': activeRoute === '/manage-users'}">
+                    Administrar Usuarios
+                </a>
+            </li>
+            <li>
+                <a routerLink='/my-orders' [ngClass]="{'active': activeRoute === '/my-orders'}">
+                    Mis ordenes
+                </a>
+            </li>
+            <li>
+                <a routerLink='/my-account' [ngClass]="{'active': activeRoute === '/my-account'}">
+                    Mi cuenta
+                </a>
+            </li>
+            <li>
+                <a routerLink='/sign-in' [ngClass]="{'active': activeRoute === '/sign-in'}">
+                    Cerrar sesión
+                </a>
+            </li>
+            <li className='flex items-center'>
+                Car
+            </li>
+
+        </ng-container>
+        <ng-template #userNoAccount>
+            <li>
+                <a routerLink='/sign-in' [ngClass]="{'active': activeRoute === '/sign-in'}">
+                    Iniciar sesión
+                </a>
+            </li>                
+        </ng-template>
+    </ul>
+</nav>

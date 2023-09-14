@@ -41,10 +41,10 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.authService.login(this.email,this.password).subscribe((resp:any) => {
-      if(!resp.error && resp){
+      if (!resp.error && resp) {
         this.router.navigate(["/"]);
-      }else{
-        this.toastr.error(`${resp.error.message}`, 'Correo o contraseña incorrecta!');
+      } else {
+        this.toastr.error(`${resp.error.message}`, '¡Correo o contraseña incorrecta!');
       }
     })
   }
