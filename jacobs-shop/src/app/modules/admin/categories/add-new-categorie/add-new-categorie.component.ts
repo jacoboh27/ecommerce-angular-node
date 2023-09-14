@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Toaster } from 'ngx-toast-notifications';
-import { NoticyAlertComponent } from 'src/app/componets/notifications/noticy-alert/noticy-alert.component';
+//import { Toaster } from 'ngx-toast-notifications';
+//import { NoticyAlertComponent } from 'src/app/componets/notifications/noticy-alert/noticy-alert.component';
 import { CategoriesService } from '../_services/categories.service';
 
 @Component({
@@ -21,17 +21,17 @@ export class AddNewCategorieComponent implements OnInit {
   constructor(
     public _categorieService: CategoriesService,
     public modal:NgbActiveModal,
-    public toaster: Toaster,
+    //public toaster: Toaster,
   ) { }
 
   ngOnInit(): void {
   }
 
-  processFile($event){
+  processFile($event:any){
     console.log($event.target);
     if($event.target.files[0].type.indexOf("image") < 0){
       this.imagen_previzualizacion = null;
-      this.toaster.open(NoticyAlertComponent,{text:`danger-'Upps! Necesita ingresar un archivo de tipo imagen.'`});
+      //this.toaster.open(NoticyAlertComponent,{text:`danger-'Upps! Necesita ingresar un archivo de tipo imagen.'`});
       return;
     }
     this.imagen_file = $event.target.files[0];
@@ -43,7 +43,7 @@ export class AddNewCategorieComponent implements OnInit {
   save(){
     console.log(this.name);
     if(!this.name || !this.imagen_file){
-      this.toaster.open(NoticyAlertComponent,{text:`danger-'Upps! Necesita ingresar todos los campos.'`});
+      //this.toaster.open(NoticyAlertComponent,{text:`danger-'Upps! Necesita ingresar todos los campos.'`});
       return;
     }
     let formData = new FormData();

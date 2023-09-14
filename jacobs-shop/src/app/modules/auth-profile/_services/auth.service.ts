@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   login(email:string,password:string){
-    let URL = URL_SERVICIOS + "users/login";
+    let URL = URL_SERVICIOS + "/users/login";
     return this.http.post(URL, {email, password}).pipe(
       map((resp:any) => {
         if (resp.USER_FRONTEND && resp.USER_FRONTEND.token){
@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   registerUser(data:any){
-    let URL = URL_SERVICIOS + "users/register";
+    let URL = URL_SERVICIOS + "/users/register";
     return this.http.post(URL, data);
   }
 

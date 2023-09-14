@@ -7,11 +7,11 @@ import { EditNewCategorieComponent } from '../edit-new-categorie/edit-new-catego
 import { CategoriesService } from '../_services/categories.service';
 
 @Component({
-  selector: 'app-lits-categories',
-  templateUrl: './lits-categories.component.html',
-  styleUrls: ['./lits-categories.component.scss']
+  selector: 'app-list-categories',
+  templateUrl: './list-categories.component.html',
+  styleUrls: ['./list-categories.component.scss']
 })
-export class LitsCategoriesComponent implements OnInit {
+export class ListCategoriesComponent implements OnInit {
 
   categories:any = [];
   search:any = "";
@@ -44,26 +44,26 @@ export class LitsCategoriesComponent implements OnInit {
     })
   }
 
-  editCategorie(categorie){
+  editCategorie(categorie: any){
     const modalRef = this.modalService.open(EditNewCategorieComponent,{centered:true, size: 'md'});
     modalRef.componentInstance.categorie_selected = categorie;
 
-    modalRef.componentInstance.CategorieE.subscribe((categorie:any) => {
-      let index = this.categories.findIndex(item => item._id == categorie._id);
-      if(index != -1){
-        this.categories[index] = categorie;
-      }
-    })
+    // modalRef.componentInstance.CategorieE.subscribe((categorie: any) => {
+    //   let index = this.categories.findIndex(item => item._id == categorie._id);
+    //   if(index != -1){
+    //     this.categories[index] = categorie;
+    //   }
+    // })
   }
-  delete(categorie){
+  delete(categorie: any){
     const modalRef = this.modalService.open(DeleteNewCategorieComponent,{centered:true, size: 'md'});
     modalRef.componentInstance.categorie_selected = categorie;
 
-    modalRef.componentInstance.CategorieD.subscribe((resp:any) => {
-      let index = this.categories.findIndex(item => item._id == categorie._id);
-      if(index != -1){
-        this.categories.splice(index,1);
-      }
-    })
+    // modalRef.componentInstance.CategorieD.subscribe((resp:any) => {
+    //   let index = this.categories.findIndex(item => item._id == categorie._id);
+    //   if(index != -1){
+    //     this.categories.splice(index,1);
+    //   }
+    // })
   }
 }

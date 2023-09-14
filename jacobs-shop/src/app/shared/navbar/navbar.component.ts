@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { CategoriesService } from 'src/app/modules/categories/_services/categories.service';
+import { CategoriesService } from 'src/app/modules/admin/categories/_services/categories.service';
 
 @Component({
   selector: 'app-navbar',

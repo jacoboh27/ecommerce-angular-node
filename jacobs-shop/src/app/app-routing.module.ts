@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadChildren: () => import("./modules/auth-profile/auth-profile.module").then(m => m.AuthProfileModule)
   },
   {
+    path: 'admin',
+    loadChildren: () => import("./modules/admin/admin.module").then(m => m.AdminModule)
+  },
+  {
     path: '',
     redirectTo: '/',
     pathMatch: 'full'
