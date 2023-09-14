@@ -5,6 +5,7 @@ import { AddNewCategorieComponent } from '../add-new-categorie/add-new-categorie
 import { DeleteNewCategorieComponent } from '../delete-new-categorie/delete-new-categorie.component';
 import { EditNewCategorieComponent } from '../edit-new-categorie/edit-new-categorie.component';
 import { CategoriesService } from '../_services/categories.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list-categories',
@@ -21,6 +22,7 @@ export class ListCategoriesComponent implements OnInit {
   constructor(
     public _serviceCategorie: CategoriesService,
     public modalService: NgbModal,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -44,26 +46,28 @@ export class ListCategoriesComponent implements OnInit {
     })
   }
 
+  
   editCategorie(categorie: any){
     const modalRef = this.modalService.open(EditNewCategorieComponent,{centered:true, size: 'md'});
     modalRef.componentInstance.categorie_selected = categorie;
 
-    // modalRef.componentInstance.CategorieE.subscribe((categorie: any) => {
-    //   let index = this.categories.findIndex(item => item._id == categorie._id);
-    //   if(index != -1){
-    //     this.categories[index] = categorie;
-    //   }
-    // })
+    modalRef.componentInstance.CategorieE.subscribe((categorie:any) => {
+      let index = this.categories.findIndex((item: any) => item._id == categorie._id);
+      if(index != -1){
+        this.categories[index] = categorie;
+      }
+    })
   }
+
   delete(categorie: any){
     const modalRef = this.modalService.open(DeleteNewCategorieComponent,{centered:true, size: 'md'});
     modalRef.componentInstance.categorie_selected = categorie;
 
-    // modalRef.componentInstance.CategorieD.subscribe((resp:any) => {
-    //   let index = this.categories.findIndex(item => item._id == categorie._id);
-    //   if(index != -1){
-    //     this.categories.splice(index,1);
-    //   }
-    // })
+    modalRef.componentInstance.CategorieD.subscribe((resp:any) => {
+      let index = this.categories.findIndex((item:any) => item._id == categorie._id);
+      if(index != -1){
+        this.categories.splice(index,1);
+      }
+    })
   }
 }

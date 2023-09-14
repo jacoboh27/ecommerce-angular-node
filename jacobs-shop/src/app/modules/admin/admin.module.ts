@@ -12,6 +12,9 @@ import { AddNewCategorieComponent } from './categories/add-new-categorie/add-new
 import { EditNewCategorieComponent } from './categories/edit-new-categorie/edit-new-categorie.component';
 import { DeleteNewCategorieComponent } from './categories/delete-new-categorie/delete-new-categorie.component';
 import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { ListCategoriesComponent } from './categories/list-categories/list-categ
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule,
+    MatDialogModule,
   ]
 })
 export class AdminModule { }
