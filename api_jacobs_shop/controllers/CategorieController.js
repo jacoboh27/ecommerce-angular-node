@@ -55,7 +55,23 @@ export default {
             Categories = Categories.map((user) => {
                 return resource.Categorie.categorie_list(user);
             })
+            res.status(200).json({
+                categories: Categories
+            });
+        } catch (error) {
+            res.status(500).send({
+                message: "OCURRIÓ UN ERROR"
+            });
+            console.log(error);
+        }
+    },
+    list_active: async(req,res) => {
+        try {
+            let Categories = await models.Categorie.find({state:1});
 
+            Categories = Categories.map((categorie) => {
+                return resource.Categorie.categorie_list_active(categorie);
+            })
             res.status(200).json({
                 categories: Categories
             });

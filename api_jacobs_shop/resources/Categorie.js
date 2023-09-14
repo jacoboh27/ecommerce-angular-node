@@ -6,5 +6,11 @@ export default {
             imagen: categorie.imagen,
             state: categorie.state,
         }
-    }
+    },
+    categorie_list_active: (categorie) => {
+        return {
+            _id: categorie._id,
+            title: categorie.title,
+        }
+    },
 }
