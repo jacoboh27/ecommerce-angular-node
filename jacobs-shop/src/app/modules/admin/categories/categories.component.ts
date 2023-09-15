@@ -45,7 +45,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   processFile($event:any){
-    console.log($event.target);
     if($event.target.files[0].type.indexOf("image") < 0){
       this.imagen_previzualizacion = null;
       this.toastr.error('¡Debes subir un archivo de tipo imagen!');
@@ -57,7 +56,6 @@ export class CategoriesComponent implements OnInit {
     reader.onloadend = () => this.imagen_previzualizacion = reader.result;
   }
   saveNewCategory(){
-    console.log(this.nameNewCategory);
     if(!this.nameNewCategory || !this.imagen_file){
       this.toastr.warning('¡Es necesario ingresar todos los campos!');
       return;
@@ -79,7 +77,6 @@ export class CategoriesComponent implements OnInit {
   }
 
   processFileEdit($event:any){
-    console.log($event.target);
     if($event.target.files[0].type.indexOf("image") < 0){
       this.imagenPrevEditCategory = null;
       this.toastr.error('¡Debes subir un archivo de tipo imagen!');
@@ -92,7 +89,7 @@ export class CategoriesComponent implements OnInit {
   }
   saveEditCategory() {
     if(!this.nameEditCategory){
-      this.toastr.error('¡Debes ingresar un nombre para la imagen!');
+      this.toastr.error('¡Debes ingresar un nombre para la categoría!');
       return;
     }
     let formData = new FormData();

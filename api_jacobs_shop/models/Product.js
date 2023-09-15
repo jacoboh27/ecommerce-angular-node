@@ -7,7 +7,7 @@ const ProductSchema = new Schema({
     categorie:{type:Schema.ObjectId, ref:'categorie', required:true},
     price_pesos:{type:Number, required:true},
     imagen:{type:String, required:true},
-    state:{type:Number, default:1},//1:prueba-desarrollo, 2: publico, 3: anulado.
+    state:{type:Number, default:2},//1:prueba-desarrollo, 2: publico, 3: anulado.
     stock:{type:Number, default:0},
     description:{type:String, required:true}
 },{

@@ -10,24 +10,15 @@ import { AuthService } from '../../../auth-profile/_services/auth.service';
 })
 export class CategoriesService {
 
-  isLoading$: Observable<boolean>;
-  isLoadingSubject: BehaviorSubject<boolean>;
-  
   constructor(
     private http: HttpClient,
     public authservice: AuthService,
-  ) {
-    this.isLoadingSubject = new BehaviorSubject<boolean>(false);
-    this.isLoading$ = this.isLoadingSubject.asObservable();
-  }
+  ) { }
   
   allCategories(search=''){
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'token': this.authservice.token});
     let URL = URL_SERVICIOS+"/categories/list?search="+search;
-    return this.http.get(URL,{headers: headers}).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.get(URL,{headers: headers});
   }
 
   allActiveCategories(){
@@ -42,20 +33,14 @@ export class CategoriesService {
   }
 
   updateCategorie(data:any){
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'token': this.authservice.token});
     let URL = URL_SERVICIOS+"/categories/update";
-    return this.http.put(URL,data,{headers: headers}).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.put(URL,data,{headers: headers});
   }
 
   deleteCategorie(categorie_id:any){
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'token': this.authservice.token});
     let URL = URL_SERVICIOS+"/categories/delete?_id="+categorie_id;
-    return this.http.delete(URL,{headers: headers}).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.delete(URL,{headers: headers});
   }
 }

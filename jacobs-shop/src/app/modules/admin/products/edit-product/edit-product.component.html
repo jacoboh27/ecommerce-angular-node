@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+
+<div class="flex flex-col mt-20 px-8">
+    <div class="bg-white shadow-lg rounded-lg">
+        <div class="bg-gray-100 py-4 px-6 border-b border-gray-200">
+            <h3 class="text-lg text-gray-700 font-semibold">
+                <i class="icon-2x text-dark-50 flaticon-imac mx-2"></i> Editar el producto: 
+                {{ product_selected ? product_selected.title : '' }}
+            </h3>
+        </div>
+        <div class="px-6 py-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="col-span-2">
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Título: <span class="text-red-600">*</span>
+                        </label>
+                        <input type="text" placeholder="" [(ngModel)]="title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Código (SKU): <span class="text-red-600">*</span>
+                        </label>
+                        <input type="text" placeholder="" [(ngModel)]="sku" name="sku" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                </div>              
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="col-span-1">
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Categoría: <span class="text-red-600">*</span>
+                        </label>
+                        <select name="categorie" [(ngModel)]="categorie" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="">Ninguna</option>
+                            <ng-container *ngFor="let item of categories">
+                                <option [value]="item._id">{{ item.title }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-span-1">
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Precio: <span class="text-red-600">*</span>
+                        </label>
+                        <input type="text" placeholder="" [(ngModel)]="price_pesos" name="price_pesos" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="col-span-1">
+                    <div class="mb-6">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estado: 
+                            <span class="text-red-600">*</span>
+                        </label>
+                        <select name="stateEditCategory" [(ngModel)]="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="1">Creación</option>
+                            <option value="2">Público</option>
+                            <option value="3">Anulado</option>
+                        </select>
+                    </div>
+                </div>          
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="col-span-2">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Descripción: <span class="text-red-600">*</span>
+                    </label>
+                    <textarea name="description" [(ngModel)]="description" placeholder="" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                </div>
+                <div class="col-span-1">
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Imagen: <span class="text-red-600">*</span>
+                        </label>
+                        <div class="custom-file mt-1">
+                            <input type="file" class="form-input custom-file-input" id="customFile"
+                                accept=".jpeg, .bmp, .jpg, .png, .gif, .webp" (change)="processFile($event)">
+                        </div>
+                        <div class="mt-2">
+                            <div *ngIf="imagen_previzualizacion">
+                                <img [src]="URL_IMAGES + imagen_previzualizacion" style="width: 150px" alt="" srcset="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex mt-6">
+                <button (click)="update()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    Editar producto
+                </button>
+                <button (click)="listProducts()" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    Volver
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

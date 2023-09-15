@@ -1,0 +1,138 @@
+<app-navbar></app-navbar>
+
+<div class="flex flex-col mt-20 px-8">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden w-full">
+        <div class="flex flex-row justify-between bg-gray-200 px-4 py-3 border-b border-gray-300">
+            <div class="text-xl text-gray-700">
+                <h3 class="font-bold"><i class="text-2xl text-gray-600 fas fa-file-alt mr-2"></i> Lista de productos
+                </h3>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button routerLink="/admin/products/crear-producto" type="button"
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Crear producto
+                </button>
+            </div>
+
+
+        </div>
+        <div class="px-4 py-3">
+            <!-- begin: Filtration form -->
+            <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 gap-2">
+                <div class="lg:w-1/3">
+                    <input type="text" class="border border-gray-300 rounded-lg p-2 w-full" name="searchText"
+                        placeholder="Buscar nombre producto" value="" [(ngModel)]="search" (keyup.enter)="allProducts()" />
+                    <small class="text-gray-500">Para buscar presiona la tecla <b>Enter</b></small>
+                </div>
+                <div class="lg:w-1/3">
+                    <select class="border border-gray-300 rounded-lg p-2 w-full" name="categorie" [(ngModel)]="categorie">
+                        <option value="">Ninguna</option>
+                        <ng-container *ngFor="let item of categories">
+                            <option [value]="item._id">{{ item.title }}</option>
+                        </ng-container>
+                    </select>
+                    <small class="text-gray-500"><b>Buscar</b> por categoría</small>
+                </div>
+                <div class="lg:w-1/6">
+                    <button (click)="allProducts()" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        Buscar
+                    </button>
+                    <button (click)="refresh()" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <table class="table-auto w-full" id="kt_advance_table_widget_1">
+                    <thead>
+                        <tr class="text-left">
+                            <th>IMAGEN</th>
+                            <th>NOMBRE</th>
+                            <th>CÓDIGO(SKU)</th>
+                            <th>CATEGORÍA</th>
+                            <th>PRECIO(COP)</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of products">
+                            <td>
+                                <img [src]="URL_IMAGES + product.imagen" style="width: 60px;" alt="" srcset="">
+                            </td>
+                            <td>{{ product.title }}</td>
+                            <td>{{ product.sku }}</td>
+                            <td>{{ product.categorie.title }}</td>
+                            <td>${{ product.price_pesos }}</td>
+                            <td>
+                                <span class="bg-yellow-500 text-white py-1 px-2 rounded-lg mr-2"
+                                    *ngIf="product.state == 1">Creación</span>
+                                <span class="bg-green-500 text-white py-1 px-2 rounded-lg mr-2"
+                                    *ngIf="product.state == 2">Público</span>
+                                <span class="bg-red-500 text-white py-1 px-2 rounded-lg mr-2"
+                                    *ngIf="product.state == 3">Anulado</span>
+                            </td>
+                            <td>
+                                <div class="flex flex-row gap-1">
+                                    <div (click)="editProduct(product)"
+                                        class="max-w-sm p-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:bg-blue-500"
+                                        ngbTooltip="Editar Categoría">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                            <path
+                                                d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z" />
+                                            <path
+                                                d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z" />
+                                        </svg>
+                                    </div>
+                                    <div (click)="selectModalProduct(product)" data-modal-target="deleteProductModal" data-modal-toggle="deleteProductModal"
+                                        class="max-w-sm p-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:bg-red-500"
+                                        ngbTooltip="Eliminar Categoría">
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                            <path
+                                                d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Confirm delete categorie modal -->
+<div id="deleteProductModal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button data-modal-hide="deleteProductModal" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Cerrar modal</span>
+            </button>
+            <div class="p-6 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">¿Estás seguro de que deseas eliminar el producto {{ productSelected.title }}?</h3>
+                <button (click)="deleteProduct()" data-modal-hide="deleteProductModal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                    Eliminar
+                </button>
+                <button data-modal-hide="deleteProductModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
