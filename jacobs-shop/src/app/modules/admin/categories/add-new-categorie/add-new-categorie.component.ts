@@ -15,9 +15,9 @@ export class AddNewCategorieComponent implements OnInit {
 
   isLoading$:any;
   name:any = null;
-
   imagen_file:any = null;
   imagen_previzualizacion:any = null;
+  
   constructor(
     public _categorieService: CategoriesService,
     public modal:NgbActiveModal,

@@ -50,6 +50,7 @@ export default {
                             name: user.name,
                             surname: user.surname,
                             email: user.email,
+                            rol: user.rol,
                             avatar: user.avatar
                         }
                     }

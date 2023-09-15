@@ -36,12 +36,9 @@ export class CategoriesService {
   }
 
   createCategorie(data:any){
-    this.isLoadingSubject.next(true);
     let headers = new HttpHeaders({'token': this.authservice.token});
     let URL = URL_SERVICIOS+"/categories/register";
-    return this.http.post(URL,data,{headers: headers}).pipe(
-      finalize(() => this.isLoadingSubject.next(false))
-    );
+    return this.http.post(URL,data,{headers: headers});
   }
 
   updateCategorie(data:any){
