@@ -34,7 +34,6 @@ export class NavbarComponent implements OnInit {
   allActiveCategories(){
     this._serviceCategorie.allActiveCategories().subscribe((resp:any) => {
       this.categories = resp.categories;
-      console.log("this.categories", this.categories);
     })
   }
 

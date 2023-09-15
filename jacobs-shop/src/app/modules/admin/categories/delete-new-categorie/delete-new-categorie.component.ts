@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 //import { Toaster } from 'ngx-toast-notifications';
 //import { NoticyAlertComponent } from 'src/app/componets/notifications/noticy-alert/noticy-alert.component';
 import { CategoriesService } from '../_services/categories.service';
@@ -15,7 +14,6 @@ export class DeleteNewCategorieComponent implements OnInit {
   @Input() categorie_selected:any;
 
   constructor(
-    public modal: NgbActiveModal,
     public categorieService: CategoriesService,
     //public toaster: Toaster,
   ) { }
@@ -29,7 +27,7 @@ export class DeleteNewCategorieComponent implements OnInit {
       console.log(resp);
       this.CategorieD.emit("");
       //this.toaster.open(NoticyAlertComponent,{text:`success-'LA CATEGORIA  SE ELIMINO CORRECTAMENTE.'`});
-      this.modal.close();
+      //this.modal.close();
     }, (error) => {
       if(error.error){
         //this.toaster.open(NoticyAlertComponent,{text:`danger-'${error.error.message}'`});
