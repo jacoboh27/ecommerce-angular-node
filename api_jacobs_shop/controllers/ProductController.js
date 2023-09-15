@@ -92,6 +92,36 @@ export default {
         }
     },
 
+    list_active:async(req,res) => {
+        try {
+            var filter = [];
+            if (req.query.search && req.query.search.trim() !== '') { 
+                filter.push({ title: new RegExp(req.query.search, "i") });
+            }
+            if (req.query.categorie && req.query.categorie.trim() !== '') { 
+                filter.push({ categorie: req.query.categorie });
+            }
+                          
+            let products = []; 
+            if (filter.length > 0) { 
+            products = await models.Product.find({ $and: filter, state: 2 }).populate("categorie"); 
+            } else { 
+            products = await models.Product.find({state:2}).populate("categorie"); 
+            }
+            products = products.map((product) => {
+                return resources.Product.product_list(product);
+            });
+
+            res.status(200).json({
+                products: products,
+            })
+        } catch (error) {
+            res.status(500).send({
+                message: "COURRIO UN PROBLEMA"
+            });
+        }
+    },
+
     remove:async(req,res) => {
         try {
             let _id = req.query._id;

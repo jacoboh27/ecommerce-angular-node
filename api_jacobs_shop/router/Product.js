@@ -11,6 +11,7 @@ router.post("/register_imagen", [auth.verifyAdmin,path], productController.regis
 router.post("/remove_imagen", [auth.verifyAdmin,path], productController.remove_imagen);
 router.put("/update", [auth.verifyAdmin,path], productController.update);
 router.get("/list", auth.verifyAdmin, productController.list);
+router.get("/list_active", productController.list_active);
 router.delete("/delete", auth.verifyAdmin, productController.remove);
 router.get("/uploads/product/:img", productController.obtener_imagen);
 router.get("/show/:id", productController.show);

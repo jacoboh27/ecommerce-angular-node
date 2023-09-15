@@ -59,7 +59,6 @@ export class AddNewProductComponent implements OnInit {
     formData.append("imagen", this.imagen_file);
 
     this._productService.createProduct(formData).subscribe((resp:any) => {
-      console.log(resp);
       if (resp.code == 403){
         this.toastr.error('¡El nombre del producto ya existe, elige otro nombre!');
         return;

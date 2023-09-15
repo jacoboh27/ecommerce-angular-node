@@ -18,7 +18,6 @@ export class ProductService {
   allProducts(search='',categorie=null) {
     let headers = new HttpHeaders({'token': this.authservice.token});
     let LINK = "";
-    console.log("value categorie:", categorie);
     if (search){
       LINK+= "?search=" + search;
     } else {
@@ -31,6 +30,22 @@ export class ProductService {
     }
     let URL = URL_SERVICIOS + "/products/list" + LINK;
     return this.http.get(URL, {headers: headers});
+  }
+
+  allActiveProducts(search='',categorie=null) {
+    let LINK = "";
+    if (search){
+      LINK+= "?search=" + search;
+    } else {
+      LINK+= "?search=";
+    }
+    if (categorie){
+      LINK+= "&categorie=" + categorie;
+    } else {
+      LINK+= "&categorie=";
+    }
+    let URL = URL_SERVICIOS + "/products/list_active" + LINK;
+    return this.http.get(URL);
   }
   
   showProduct(product_id='') {

@@ -28,14 +28,12 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.allProducts();
     this._categorieService.allCategories().subscribe((resp:any) => {
-      console.log(resp);
       this.categories = resp.categories;
     })
   }
 
   allProducts() {
     this._productService.allProducts(this.search, this.categorie).subscribe((resp:any) => {
-      console.log(resp);
       this.products = resp.products;
     })
   }

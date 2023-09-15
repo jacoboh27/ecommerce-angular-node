@@ -3,3 +3,10 @@
     text-decoration: underline;
     text-underline-offset: 4px;
 }
+
+.checkout-side-menu {
+    width: 500px;
+    height: calc(100vh - 68px);
+    top: 80px;
+    z-index: 10;
+}
