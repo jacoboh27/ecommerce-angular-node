@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { URL_BACKEND } from 'src/app/config/config';
 import { CategoriesService } from './_services/categories.service';
 import { ToastrService } from 'ngx-toastr';
-//import { Modal } from 'flowbite';
+import { Modal } from 'flowbite';
 
 @Component({
   selector: 'app-categories',
@@ -22,7 +22,9 @@ export class CategoriesComponent implements OnInit {
   imagenPrevEditCategory:any = null;
   imagenFileEditCategory:any = null;
 
-  //editModal: any = null;
+  editModal: any = null;
+  deleteModal: any = null;
+  newModal: any = null;
 
   URL_BACKEND:any = URL_BACKEND;
   constructor(
@@ -32,7 +34,9 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.allCategories();
-    //this.editModal = new Modal(document.getElementById('editCategorieModal'));
+    this.editModal = new Modal(document.getElementById('editCategorieModal'));
+    this.deleteModal = new Modal(document.getElementById('deleteCategorieModal'));
+    this.newModal = new Modal(document.getElementById('newCategorieModal'));
   }
   allCategories(){
     this._categorieService.allCategories(this.search).subscribe((resp:any) => {
@@ -67,6 +71,29 @@ export class CategoriesComponent implements OnInit {
       this.toastr.success('¡Nueva categoría registrada exitosamente!');
       this.categories.unshift(resp);
     })
+    this.closeModal('new');
+  }
+
+  showModal(categorie: any, option: string){
+    if (option == 'edit') {
+      this.editModal.show();
+      this.selectModalCategory(categorie);
+    } else if (option == 'delete') {
+      this.deleteModal.show();
+      this.selectModalCategory(categorie);
+    } else if (option == 'new'){
+      this.newModal.show();
+    }
+  }
+
+  closeModal(option: string){
+    if (option == 'edit') {
+      this.editModal.hide();
+    } else if (option == 'delete') {
+      this.deleteModal.hide();
+    } else if (option == 'new'){
+      this.newModal.hide();
+    }
   }
 
   selectModalCategory(categorie: any){
@@ -105,6 +132,7 @@ export class CategoriesComponent implements OnInit {
         this.categories[index] = resp.categorie;
       }
       this.toastr.success('¡La categoría se editó exitosamente!');
+      this.closeModal('edit');
     })
   }
 
@@ -119,7 +147,8 @@ export class CategoriesComponent implements OnInit {
       if(error.error){
         this.toastr.error('¡Ocurrio un error!');
       }
-    })
+    });
+    this.closeModal('delete');
   }
 
 }

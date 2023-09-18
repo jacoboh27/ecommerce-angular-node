@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ProductService } from './_services/product.service';
 import { CategoriesService } from '../categories/_services/categories.service';
 import { ToastrService } from 'ngx-toastr';
+import { Modal } from 'flowbite';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +18,7 @@ export class ProductsComponent implements OnInit {
   categorie:any = '';
   categories:any = [];
   URL_IMAGES:any = URL_IMAGES;
+  deleteModal: any = null;
 
   constructor(
     public router:Router,
@@ -27,6 +29,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.allProducts();
+    this.deleteModal = new Modal(document.getElementById('deleteProductModal'));
     this._categorieService.allCategories().subscribe((resp:any) => {
       this.categories = resp.categories;
     })
@@ -46,9 +49,6 @@ export class ProductsComponent implements OnInit {
 
   selectModalProduct(product: any){
     this.productSelected = product;
-    //this.nameEditCategory = product.title;
-    //this.stateEditCategory = product.state;
-    //this.imagenPrevEditCategory = URL_BACKEND+'api/products/uploads/product/' + product.imagen;
   }
 
   editProduct(product:any) {
@@ -66,7 +66,21 @@ export class ProductsComponent implements OnInit {
       if(error.error){
         this.toastr.error('¡Ocurrio un error!');
       }
-    })
+    });
+    this.closeModal('delete');
+  }
+
+  showModal(product: any, option: string){
+    if (option == 'delete') {
+      this.deleteModal.show();
+      this.selectModalProduct(product);
+    }
+  }
+
+  closeModal(option: string){
+    if (option == 'delete') {
+      this.deleteModal.hide();
+    }
   }
 
 }
